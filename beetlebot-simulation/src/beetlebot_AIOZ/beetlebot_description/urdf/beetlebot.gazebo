@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/beetlebot</robotNamespace>
+      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+      <legacyModeNS>false</legacyModeNS>
+    </plugin>
+  </gazebo>
+
+  <gazebo>
+    <plugin name="ground_truth" filename="libgazebo_ros_p3d.so">
+      <frameName>world</frameName>
+      <bodyName>chassis</bodyName>
+      <topicName>beetlebot/odom</topicName>
+      <odometryFrame>odom</odometryFrame>
+      <odometrySource>map</odometrySource>
+      <publishOdomTF>true</publishOdomTF>
+      <robotBaseFrame>chassis</robotBaseFrame>
+      <publishTf>true</publishTf>
+      <broadcastTF>true</broadcastTF>
+      <updateRate>30.0</updateRate>
+    </plugin>
+  </gazebo>
+
+  <gazebo reference="chassis">
+    <mu1>0.3</mu1>
+    <mu2>0.3</mu2>
+    <material>Gazebo/Orange</material>
+    <self_collide>0</self_collide>
+  </gazebo>
+
+  <!-- camera_rgb_frame -->
+
+  <!-- camera_rgb_frame_left -->
+
+  <!-- camera_rgb_frame_right -->
+  
+  <!-- camera_rgb_frame_rear -->
+
+  <!-- hokuyo_link -->
+ 
+  <!-- imu_controller -->
+
+</robot>

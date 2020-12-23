@@ -1,0 +1,248 @@
+<?xml version="1.0"?>
+<robot>
+
+<!-- ****************************************sterring******************************************** -->
+    <macro name="sterring" params="st pr ori xyz_ori_joint rpy_ori_joint" >
+
+      <link
+        name="${st}_Link">
+        <inertial>
+          <origin
+            xyz="${ori*-0.000100729773299224} ${ori*-0.022707717448498} -0.0946007357290982"
+            rpy="0 0 0" />
+          <mass
+            value="1.110802029012366" />
+          <inertia
+            ixx="0.00032454182493778"
+            ixy="0"
+            ixz="0"
+            iyy="0.000313625372879202"
+            iyz="0"
+            izz="3.60621586312286E-05" />
+        </inertial>
+        <visual>
+          <origin
+            xyz="0 0 0"
+            rpy="0 0 0" />
+          <geometry>
+            <mesh
+              filename="$(find beetlebot_description)/meshes/${st}_Link.dae" />
+          </geometry>
+          <material
+            name="">
+            <color
+              rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+          </material>
+        </visual>
+        <collision>
+          <origin
+            xyz="0 0 0"
+            rpy="0 0 0" />
+          <geometry>
+            <mesh
+              filename="$(find beetlebot_description)/meshes/${st}_Link.dae" />
+          </geometry>
+        </collision>
+      </link>
+
+      <joint
+        name="${st}_joint" type="revolute">
+        <origin
+          xyz="${xyz_ori_joint}"
+          rpy="${rpy_ori_joint}" />
+        <parent link="${pr}" />
+        <child link="${st}_Link" />
+        <axis xyz="0 0 1" />
+        <!-- <safety_controller k_velocity="10" />
+        <joint_properties damping="0.5" friction="10.0"/> -->
+        <limit lower="-1.0472" upper="1.0472" effort="1.0472" velocity="10.0"/>
+
+        <!-- <limit effort="100.0" velocity="100.0"/>
+        <safety_controller k_velocity="10" />
+        <joint_properties damping="1.0" friction="50.0"/> -->
+      </joint>
+
+      <transmission name="${st}_trans">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="${st}_joint">
+          <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="${st}_Motor">
+          <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+          <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+      </transmission>
+
+      <gazebo reference="${st}_Link">
+        <mu1>0.3</mu1>
+        <mu2>0.3</mu2>
+        <self_collide>1</self_collide>
+      </gazebo>
+    </macro>
+
+<!-- ****************************************bogie*********************************************** -->
+    <macro name="bogie" params="ch pr num">
+      <link
+        name="${ch}_Link">
+        <inertial>
+          <origin
+            xyz="-0.000163032997340468 ${num*-0.0332177038859611} -0.0358157719860211"
+            rpy="0 0 0" />
+          <mass
+            value="0.298477821339867" />
+          <inertia
+            ixx="0.00305008410077296"
+            ixy="0"
+            ixz="0"
+            iyy="0.000246965375315985"
+            iyz="0"
+            izz="0.00318546306770007" />
+        </inertial>
+        <visual>
+          <origin
+            xyz="0 0 0"
+            rpy="0 0 0" />
+          <geometry>
+            <mesh
+              filename="$(find beetlebot_description)/meshes/${ch}_Link.dae" />
+          </geometry>
+          <material
+            name="">
+            <color
+              rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+          </material>
+        </visual>
+        <collision>
+          <origin
+            xyz="0 0 0"
+            rpy="0 0 0" />
+          <geometry>
+            <mesh
+              filename="$(find beetlebot_description)/meshes/${ch}_Link.dae" />
+          </geometry>
+        </collision>
+      </link>
+
+      <joint
+        name="${ch}_joint"
+        type="revolute">
+        <origin
+          xyz="0.1019 ${num*0.1916} -0.030305"
+          rpy="${num*-1.5708} 0.96563 0" />
+        <parent
+          link="chassis" />
+        <child
+          link="${ch}_Link" />
+        <axis
+          xyz="0 0 1" />
+        <safety_controller
+          k_velocity="0" />
+        <joint_properties damping="0.0" friction="0.0"/>
+        <limit lower="-0.4" upper="0.4" effort="10000.0" velocity="10.0"/>
+      </joint>
+
+      <transmission name="${ch}_trans">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="${ch}_joint">
+          <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="${ch}_Motor">
+          <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+          <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+      </transmission>
+
+      <gazebo reference="${ch}_Link">
+        <mu1>0.3</mu1>
+        <mu2>0.3</mu2>
+        <self_collide>1</self_collide>
+      </gazebo>
+
+    </macro>
+
+
+<!-- ****************************************wheel*********************************************** -->
+    <macro name="wheel" params="ch pr ori xyz_ori_joint rpy_ori_joint">
+      <link
+        name="${ch}_Link">
+        <inertial>
+          <origin
+            xyz="0 0  -0.0137009284721737"
+            rpy="0 0 0" />
+          <mass
+            value="1.0" />
+          <!-- Inertial for wheel (cylinder): xx = m*(3*r*r+h*h)/12 ; yy= m*(3*r*r+h*h)/12; zz= m*r*r/2 -->
+          <inertia
+            ixx="0.0015395" 
+            ixy="0"
+            ixz="0"
+            iyy="0.0015395"
+            iyz="0"
+            izz="0.0028125" />
+        </inertial>
+        <visual>
+          <origin
+            xyz="0 0 0"
+            rpy="0 0 0" />
+          <geometry>
+            <mesh
+              filename="$(find beetlebot_description)/meshes/${ch}_Link.dae" />
+          </geometry>
+          <material
+            name="">
+            <color
+              rgba="0.0 0.1 0.1 1" />
+          </material>
+        </visual>
+        <collision>
+          <origin
+            xyz="0 0 0"
+            rpy="0 0 0" />
+          <geometry>
+            <cylinder length="0.04" radius="0.075"/>
+            <!-- <mesh
+              filename="$(find beetlebot_description)/meshes/${ch}_Link.dae" /> -->
+          </geometry>
+        </collision>
+      </link>
+      
+      <joint
+        name="${ch}_joint"
+        type="continuous">
+        <origin
+          xyz="${xyz_ori_joint}"
+          rpy="${rpy_ori_joint}" />
+        <parent link="${pr}_Link" />
+        <child link="${ch}_Link" />
+        <axis xyz="0 0 1" />
+        <limit effort="100.0" velocity="100.0"/>
+        <safety_controller k_velocity="10" />
+        <joint_properties damping="10.0" friction="50.0"/>
+      </joint>
+
+      <transmission name="${ch}_trans">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="${ch}_joint">
+          <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="${ch}_Motor">
+          <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+          <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+      </transmission>
+
+      <gazebo reference="${ch}_Link">
+        <mu1 value="1.0"/>
+        <mu2 value="1.0"/>
+        <kp  value="10000000.0" />
+        <kd>100.0</kd>
+        <!-- <fdir1 value="0 0 1"/> -->
+        <minDepth>0.001</minDepth>
+        <maxVel>1.0</maxVel>
+        <material>Gazebo/Black</material>
+        <self_collide>1</self_collide>
+        <turnGravityOff>false</turnGravityOff>
+      </gazebo>
+    </macro>
+
+</robot>

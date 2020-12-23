@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package>
+  <name>beetlebot_control</name>
+  <version>0.0.0</version>
+  <description>The beetlebot_control package</description>
+
+  <maintainer email="pvdoanh.ce@gmail.com">pvd</maintainer>
+
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <export>
+
+  </export>
+</package>

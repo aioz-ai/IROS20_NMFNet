@@ -1,0 +1,23 @@
+<launch>
+    <!-- these are the arguments you can pass this launch file, for example paused:=true -->
+    <arg name="x" default="10.0" />
+    <arg name="y" default="100.0" />
+    <arg name="z" default="0.5" />
+
+    <!-- Load the URDF into the ROS Parameter Server -->
+    <param name="robot_description" command="$(find xacro)/xacro.py '$(find beetlebot_description)/urdf/beetlebot.xacro'" />
+
+    <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
+    <node   name="urdf_spawner" 
+            pkg="gazebo_ros" 
+            type="spawn_model" 
+            respawn="false" 
+            output="screen" 
+            args="-urdf -model beetlebot -x $(arg x) -y $(arg y) -z $(arg z) -param robot_description"/>
+    <!-- Run RVIZ-->
+    <node name="$(anon rviz)" pkg="rviz" type="rviz" args="$(find beetlebot_gazebo)/beetlebot.rviz" output="screen"/>
+
+    <!-- ros_control beetlebot launch file -->
+    <include file="$(find beetlebot_control)/launch/beetlebot_control.launch" />
+
+</launch>

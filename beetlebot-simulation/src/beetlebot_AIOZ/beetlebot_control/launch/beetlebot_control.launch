@@ -1,0 +1,39 @@
+<launch>
+
+  <!-- Load joint controller configurations from YAML file to parameter server -->
+  <rosparam file="$(find beetlebot_control)/config/beetlebot_control.yaml" command="load"/>
+
+  <!-- load the controllers -->
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+	output="screen" args="--namespace=/beetlebot
+                                    joint_state_controller
+                                    front_wheel_L_joint_velocity_controller
+                                    middle_wheel_L_joint_velocity_controller
+                                    back_wheel_L_joint_velocity_controller
+                                    front_wheel_R_joint_velocity_controller
+                                    middle_wheel_R_joint_velocity_controller
+                                    back_wheel_R_joint_velocity_controller
+                                    sterring_F_L_joint_position_controller
+                                    sterring_B_L_joint_position_controller
+                                    sterring_F_R_joint_position_controller
+                                    sterring_B_R_joint_position_controller
+                                    --shutdown-timeout 3"/>
+
+
+  <!-- convert joint states to TF transforms for rviz, etc -->
+  <node name="beetlebot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+	respawn="false" output="screen">
+    <param name="publish_frequency" type="double" value="5.0" />
+    <!-- <param name="robot_description" command="$(find xacro)/xacro.py '$(find beetlebot_description)/urdf/beetlebot.xacro'" /> -->
+    <remap from="/joint_states" to="/beetlebot/joint_states" />
+  </node>
+
+
+  <node name="beetlebot_acker_man_node"
+    pkg="beetlebot_control"
+    type="control_6_wheel_4_sterring.py"
+    respawn="false"
+    output="screen"
+    args=""/>
+
+</launch>

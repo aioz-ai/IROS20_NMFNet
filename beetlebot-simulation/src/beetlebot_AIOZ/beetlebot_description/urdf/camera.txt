@@ -1,0 +1,303 @@
+
+  <!-- camera front -->
+    <joint name="camera_joint_front" type="fixed">
+      <origin xyz="0.383 0 0.080" rpy="0 0 0"/>
+      <parent link="chassis"/>
+      <child link="camera_link"/>
+    </joint>
+
+    <link name="camera_link">
+      <collision>
+        <origin xyz="0.005 0.011 0.013" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.015 0.030 0.027"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="camera_rgb_joint" type="fixed">
+      <origin xyz="0.003 0.011 0.009" rpy="0 0 0"/>
+      <parent link="camera_link"/>
+      <child link="camera_rgb_frame"/>
+    </joint>
+    <link name="camera_rgb_frame"/>
+
+    <joint name="camera_rgb_optical_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="-1.57 0 -1.57"/>
+      <parent link="camera_rgb_frame"/>
+      <child link="camera_rgb_optical_frame"/>
+    </joint>
+    <link name="camera_rgb_optical_frame"/>
+
+
+    <gazebo reference="camera_rgb_frame">
+      <sensor type="depth" name="Pi Camera">
+        <always_on>true</always_on>
+        <visualize>false</visualize>
+        <camera>
+            <horizontal_fov>1.085595</horizontal_fov>
+            <image>
+                <width>640</width>
+                <height>480</height>
+                <format>R8G8B8</format>
+            </image>
+            <clip>
+                <near>0.03</near>
+                <far>100</far>
+            </clip>
+        </camera>
+        <!-- <plugin name="camera_controller" filename="libgazebo_ros_camera.so"> -->
+        <plugin name="camera_controller" filename="libgazebo_ros_openni_kinect.so">
+        <!-- libgazebo_ros_openni_kinect -->
+          <alwaysOn>true</alwaysOn>
+          <updateRate>30.0</updateRate>
+          <cameraName>camera</cameraName>
+          <frameName>camera_rgb_optical_frame</frameName>
+          <imageTopicName>rgb/image_raw</imageTopicName>
+          <cameraInfoTopicName>rgb/camera_info</cameraInfoTopicName>
+          
+          <depthImageTopicName>rgb/image_depth</depthImageTopicName>
+          <depthImageInfoTopicName>rgb/camera_depth_info</depthImageInfoTopicName>
+          <pointCloudTopicName>rgb/image_depth/points</pointCloudTopicName>
+
+          <pointCloudCutoff>0.05</pointCloudCutoff>
+          <pointCloudCutoffMax>10.0</pointCloudCutoffMax>
+          <rangeMax>30.0</rangeMax>
+
+          <hackBaseline>0.07</hackBaseline>
+          <distortionK1>0.0</distortionK1>
+          <distortionK2>0.0</distortionK2>
+          <distortionK3>0.0</distortionK3>
+          <distortionT1>0.0</distortionT1>
+          <distortionT2>0.0</distortionT2>
+        </plugin>
+      </sensor>
+    </gazebo>
+
+  <!-- camera left -->
+    <joint name="camera_joint_left" type="fixed">
+      <origin xyz="0.010 0.220 0.228" rpy="0 0 1.57"/>
+      <parent link="chassis"/>
+      <child link="camera_link_left"/>
+    </joint>
+
+    <link name="camera_link_left">
+      <collision>
+        <origin xyz="0.005 0.011 0.013" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.015 0.030 0.027"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="camera_rgb_joint_left" type="fixed">
+      <origin xyz="0.003 0.011 0.009" rpy="0 0 0"/>
+      <parent link="camera_link_left"/>
+      <child link="camera_rgb_frame_left"/>
+    </joint>
+    <link name="camera_rgb_frame_left"/>
+
+    <joint name="camera_rgb_optical_joint_left" type="fixed">
+      <origin xyz="0 0 0" rpy="-1.57 0 -1.57"/>
+      <parent link="camera_rgb_frame_left"/>
+      <child link="camera_rgb_optical_frame_left"/>
+    </joint>
+    <link name="camera_rgb_optical_frame_left"/>
+
+
+    <gazebo reference="camera_rgb_frame_left">
+      <sensor type="depth" name="Pi Camera">
+        <always_on>true</always_on>
+        <visualize>false</visualize>
+        <camera>
+            <horizontal_fov>1.085595</horizontal_fov>
+            <image>
+                <width>640</width>
+                <height>480</height>
+                <format>R8G8B8</format>
+            </image>
+            <clip>
+                <near>0.03</near>
+                <far>100</far>
+            </clip>
+        </camera>
+        <!-- <plugin name="camera_controller" filename="libgazebo_ros_camera.so"> -->
+        <plugin name="camera_controller" filename="libgazebo_ros_openni_kinect.so">
+        <!-- libgazebo_ros_openni_kinect -->
+          <alwaysOn>true</alwaysOn>
+          <updateRate>30.0</updateRate>
+          <cameraName>camera</cameraName>
+          <frameName>camera_rgb_optical_frame_left</frameName>
+          <imageTopicName>rgb_left/image_raw</imageTopicName>
+          <cameraInfoTopicName>rgb_left/camera_info</cameraInfoTopicName>
+          
+          <depthImageTopicName>rgb_left/image_depth</depthImageTopicName>
+          <depthImageInfoTopicName>rgb_left/camera_depth_info</depthImageInfoTopicName>
+          <pointCloudTopicName>rgb_left/image_depth/points</pointCloudTopicName>
+
+          <pointCloudCutoff>0.05</pointCloudCutoff>
+          <pointCloudCutoffMax>10.0</pointCloudCutoffMax>
+          <rangeMax>30.0</rangeMax>
+
+          <hackBaseline>0.07</hackBaseline>
+          <distortionK1>0.0</distortionK1>
+          <distortionK2>0.0</distortionK2>
+          <distortionK3>0.0</distortionK3>
+          <distortionT1>0.0</distortionT1>
+          <distortionT2>0.0</distortionT2>
+        </plugin>
+      </sensor>
+    </gazebo>
+
+  <!-- camera right -->
+    <joint name="camera_joint_right" type="fixed">
+      <origin xyz="0.010 -0.220 0.228" rpy="0 0 -1.57"/>
+      <parent link="chassis"/>
+      <child link="camera_link_right"/>
+    </joint>
+
+    <link name="camera_link_right">
+      <collision>
+        <origin xyz="0.005 0.011 0.013" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.015 0.030 0.027"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="camera_rgb_joint_right" type="fixed">
+      <origin xyz="0.003 0.011 0.009" rpy="0 0 0"/>
+      <parent link="camera_link_right"/>
+      <child link="camera_rgb_frame_right"/>
+    </joint>
+
+    <link name="camera_rgb_frame_right"/>
+
+    <joint name="camera_rgb_optical_joint_right" type="fixed">
+      <origin xyz="0 0 0" rpy="-1.57 0 -1.57"/>
+      <parent link="camera_rgb_frame_right"/>
+      <child link="camera_rgb_optical_frame_right"/>
+    </joint>
+
+    <link name="camera_rgb_optical_frame_right"/>
+
+
+    <gazebo reference="camera_rgb_frame_right">
+      <sensor type="depth" name="Pi Camera">
+        <always_on>true</always_on>
+        <visualize>false</visualize>
+        <camera>
+            <horizontal_fov>1.085595</horizontal_fov>
+            <image>
+                <width>640</width>
+                <height>480</height>
+                <format>R8G8B8</format>
+            </image>
+            <clip>
+                <near>0.03</near>
+                <far>100</far>
+            </clip>
+        </camera>
+        <!-- <plugin name="camera_controller" filename="libgazebo_ros_camera.so"> -->
+        <plugin name="camera_controller" filename="libgazebo_ros_openni_kinect.so">
+        <!-- libgazebo_ros_openni_kinect -->
+          <alwaysOn>true</alwaysOn>
+          <updateRate>30.0</updateRate>
+          <cameraName>camera</cameraName>
+          <frameName>camera_rgb_optical_frame_right</frameName>
+          <imageTopicName>rgb_right/image_raw</imageTopicName>
+          <cameraInfoTopicName>rgb_right/camera_info</cameraInfoTopicName>
+          
+          <depthImageTopicName>rgb_right/image_depth</depthImageTopicName>
+          <depthImageInfoTopicName>rgb_right/camera_depth_info</depthImageInfoTopicName>
+          <pointCloudTopicName>rgb_right/image_depth/points</pointCloudTopicName>
+
+          <pointCloudCutoff>0.05</pointCloudCutoff>
+          <pointCloudCutoffMax>10.0</pointCloudCutoffMax>
+          <rangeMax>30.0</rangeMax>
+
+          <hackBaseline>0.07</hackBaseline>
+          <distortionK1>0.0</distortionK1>
+          <distortionK2>0.0</distortionK2>
+          <distortionK3>0.0</distortionK3>
+          <distortionT1>0.0</distortionT1>
+          <distortionT2>0.0</distortionT2>
+        </plugin>
+      </sensor>
+    </gazebo>
+
+  <!-- camera rear -->
+      <joint name="camera_joint_rear" type="fixed">
+        <origin xyz="-0.361 0 0.113" rpy="0 0 3.14"/>
+        <parent link="chassis"/>
+        <child link="camera_link_rear"/>
+      </joint>
+
+      <link name="camera_link_rear">
+        <collision>
+          <origin xyz="0.005 0.011 0.013" rpy="0 0 0"/>
+          <geometry>
+            <box size="0.015 0.030 0.027"/>
+          </geometry>
+        </collision>
+      </link>
+
+      <joint name="camera_rgb_joint_rear" type="fixed">
+        <origin xyz="0.003 0.011 0.009" rpy="0 0 0"/>
+        <parent link="camera_link_rear"/>
+        <child link="camera_rgb_frame_rear"/>
+      </joint>
+
+      <link name="camera_rgb_frame_rear"/>
+
+      <joint name="camera_rgb_optical_joint_rear" type="fixed">
+        <origin xyz="0 0 0" rpy="-1.57 0 -1.57"/>
+        <parent link="camera_rgb_frame_rear"/>
+        <child link="camera_rgb_optical_frame_rear"/>
+      </joint>
+
+      <link name="camera_rgb_optical_frame_rear"/>
+
+    <gazebo reference="camera_rgb_frame_rear">
+      <sensor type="depth" name="Pi Camera">
+        <always_on>true</always_on>
+        <visualize>false</visualize>
+        <camera>
+            <horizontal_fov>1.085595</horizontal_fov>
+            <image>
+                <width>640</width>
+                <height>480</height>
+                <format>R8G8B8</format>
+            </image>
+            <clip>
+                <near>0.03</near>
+                <far>100</far>
+            </clip>
+        </camera>
+        <!-- <plugin name="camera_controller" filename="libgazebo_ros_camera.so"> -->
+        <plugin name="camera_controller" filename="libgazebo_ros_openni_kinect.so">
+        <!-- libgazebo_ros_openni_kinect -->
+          <alwaysOn>true</alwaysOn>
+          <updateRate>30.0</updateRate>
+          <cameraName>camera</cameraName>
+          <frameName>camera_rgb_optical_frame_rear</frameName>
+          <imageTopicName>rgb_rear/image_raw</imageTopicName>
+          <cameraInfoTopicName>rgb_rear/camera_info</cameraInfoTopicName>
+          
+          <depthImageTopicName>rgb_rear/image_depth</depthImageTopicName>
+          <depthImageInfoTopicName>rgb_rear/camera_depth_info</depthImageInfoTopicName>
+          <pointCloudTopicName>rgb_rear/image_depth/points</pointCloudTopicName>
+
+          <pointCloudCutoff>0.05</pointCloudCutoff>
+          <pointCloudCutoffMax>10.0</pointCloudCutoffMax>
+          <rangeMax>30.0</rangeMax>
+
+          <hackBaseline>0.07</hackBaseline>
+          <distortionK1>0.0</distortionK1>
+          <distortionK2>0.0</distortionK2>
+          <distortionK3>0.0</distortionK3>
+          <distortionT1>0.0</distortionT1>
+          <distortionT2>0.0</distortionT2>
+        </plugin>
+      </sensor>
+    </gazebo>

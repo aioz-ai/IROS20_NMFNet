@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+
+<robot name="beetlebot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+
+  <property name="PI" value="3.1415926535897931"/>
+
+
+  <include filename="$(find beetlebot_description)/urdf/beetlebot.gazebo" />
+  <include filename="$(find beetlebot_description)/urdf/materials.xacro" />
+  <include filename="$(find beetlebot_description)/urdf/robot.xacro" />
+  <include filename="$(find beetlebot_description)/urdf/sensor.xacro" />
+  <link name="footprint" />
+
+  <joint name="base_joint" type="fixed">
+    <parent link="footprint"/>
+    <child link="chassis"/>
+  </joint>
+
+  <link name="chassis">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="$(find beetlebot_description)/meshes/base_link.dae" scale= "1 1 1"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="$(find beetlebot_description)/meshes/base_link.dae" scale= "1 1 1"/>
+        <!-- <cylinder radius="0.02" length="0.02"/> -->
+      </geometry>
+      <!-- <material name="orange"/> -->
+    </visual>
+
+    <inertial>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="15.9977" />
+      <inertia
+        ixx="0.41015032534565"
+        ixy="0"
+        ixz="0"
+        iyy="0.864297044074108"
+        iyz="0"
+        izz="1.03198412493106"  />
+    </inertial>
+  </link>
+
+  <!-- Pivot_Link -->
+  <!-- <pivot pv="Pivot_left" neg="1"/>
+  <pivot pv="Pivot_right" neg="-1"/>
+  <pivot_mid pv="Pivot_mid" />  -->
+  <!-- Bogie_left_Link -->
+  <bogie ch="Bogie_left" pr="chassis" num="1"/>
+  <bogie ch="Bogie_right" pr="chassis" num="-1"/>
+  <!-- Frame_Link -->
+  <sterring st="Frame_rear_left"  pr="chassis" ori="1" xyz_ori_joint="-0.2512 0.1746 0.04115" rpy_ori_joint="0 0 3.1416"/>
+  <sterring st="Frame_front_left" pr="Bogie_left_Link" ori="1" xyz_ori_joint="0.0230242813783894 -0.161600997729002 -0.00600000000035122" rpy_ori_joint="1.57079632679489 0 -0.965625096203858"/>
+  <sterring st="Frame_front_right" pr="Bogie_right_Link" ori="-1" xyz_ori_joint="0.0230242813783506 0.161600997729037 -0.00600000000014898" rpy_ori_joint="-1.57079632679501 0 0.965625096203942"/>
+  <sterring st="Frame_rear_right" pr="chassis" ori="1" xyz_ori_joint="-0.251199999999987 -0.174600000000377 0.0411497179068749" rpy_ori_joint="0 0 -3.14159265358979"/>
+  <!-- Wheel -->
+  <wheel ch="Wheel_mid_left" pr="Bogie_left" ori="1" xyz_ori_joint="0.00282985115710119 0.125984094005667 0.00954399441673065" rpy_ori_joint="0 0 1.54833813158444"/>
+  <wheel ch="Wheel_front_left" pr="Frame_front_left" ori="1" xyz_ori_joint="0 0.0165439944167309 -0.145999999999945" rpy_ori_joint="1.570796326795 0 3.14159265358969"/>
+  <wheel ch="Wheel_rear_left" pr="Frame_rear_left" ori="1" xyz_ori_joint="0 -0.0165439944167308 -0.146" rpy_ori_joint="1.570796326795 0 0"/>
+  <wheel ch="Wheel_mid_right" pr="Bogie_right" ori="1" xyz_ori_joint="0.00282985115709367 -0.125984094005641 0.00954399441663158" rpy_ori_joint="0 0 -1.5483381315845"/>
+  <wheel ch="Wheel_front_right" pr="Frame_front_right" ori="1" xyz_ori_joint="0 -0.0165439944167298 -0.145999999999915" rpy_ori_joint="-1.5707963267949 0 3.14159265358969"/>
+  <wheel ch="Wheel_rear_right" pr="Frame_rear_right" ori="1" xyz_ori_joint="0 0.0165439944167314 -0.145999999999968" rpy_ori_joint="-1.57079632679489 0 0"/>
+
+  <!-- camera front -->
+  <sensor_camera name="camera_front" ori_xyz="0.383 0 0.080" ori_rpy="0 0 0" />
+  <sensor_camera name="camera_rear" ori_xyz="-0.361 0 0.113" ori_rpy="0 0 3.14" />
+  <sensor_camera name="camera_left" ori_xyz="0.010 0.220 0.228" ori_rpy="0 0 1.57" />
+  <sensor_camera name="camera_right" ori_xyz="0.010 -0.220 0.228" ori_rpy="0 0 -1.57" />
+
+  <Hokuyo_laser/>
+  <IMU/>
+</robot>

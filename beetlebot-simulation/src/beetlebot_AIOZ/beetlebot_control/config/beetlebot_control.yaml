@@ -1,0 +1,51 @@
+beetlebot:
+  # Publish all joint states -----------------------------------
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 50  
+  
+# Wheel Velocity Controllers ---------------------------------------
+  front_wheel_L_joint_velocity_controller:
+      type: effort_controllers/JointVelocityController
+      joint: Wheel_front_left_joint
+      pid: {p: 1.0, i: 0.0, d: 0.0}
+  middle_wheel_L_joint_velocity_controller:
+    type: effort_controllers/JointVelocityController
+    joint: Wheel_mid_left_joint
+    pid: {p: 1.0, i: 0.0, d: 0.0}
+  back_wheel_L_joint_velocity_controller:
+    type: effort_controllers/JointVelocityController
+    joint: Wheel_rear_left_joint
+    pid: {p: 1.0, i: 0.0, d: 0.0}
+  front_wheel_R_joint_velocity_controller:
+    type: effort_controllers/JointVelocityController
+    joint: Wheel_front_right_joint
+    pid: {p: 1.0, i: 0.0, d: 0.0}
+  middle_wheel_R_joint_velocity_controller:
+    type: effort_controllers/JointVelocityController
+    joint: Wheel_mid_right_joint
+    pid: {p: 1.0, i: 0.0, d: 0.0}
+  back_wheel_R_joint_velocity_controller:
+    type: effort_controllers/JointVelocityController
+    joint: Wheel_rear_right_joint
+    pid: {p: 1.0, i: 0.0, d: 0.0}
+
+
+# Wheel Steering Position Controllers ---------------------------------------
+  sterring_F_L_joint_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: Frame_front_left_joint
+    pid: {p: 500.0, i: 10.0, d: 00.0}
+  sterring_B_L_joint_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: Frame_rear_left_joint
+    pid: {p: 500.0, i: 10.0, d: 00.0}
+
+  sterring_F_R_joint_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: Frame_front_right_joint
+    pid: {p: 500.0, i: 10.0, d: 00.0}
+  sterring_B_R_joint_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: Frame_rear_right_joint
+    pid: {p: 500.0, i: 10.0, d: 00.0}
