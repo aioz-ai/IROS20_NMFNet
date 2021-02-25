@@ -94,6 +94,14 @@ If you use this code as part of any published research, we'd really appreciate i
   volume    = {abs/2007.15945},
   year      = {2020}
 }
+
+@article{ROSBook2021aioz,
+author = {Nguyen, Anh and Tran, Quang},
+year = {2020},
+month = {12},
+pages = {},
+title = {Autonomous Navigation with Mobile Robots using Deep Learning and the Robot Operating System}
+}
 ```
 
 ### License
@@ -101,3 +109,4 @@ AIOZ License
 
 ### More information
 AIOZ AI Homepage: https://ai.aioz.io
+AIOZ BeetleBot: https://beetle.aioz.io
