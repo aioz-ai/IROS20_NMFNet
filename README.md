@@ -99,7 +99,7 @@ If you use this code as part of any published research, we'd really appreciate i
 author = {Nguyen, Anh and Tran, Quang},
 year = {2020},
 month = {12},
-pages = {},
+journal = {ROSBook 2021 - Springer Book on Robot Operating System (ROS)},
 title = {Autonomous Navigation with Mobile Robots using Deep Learning and the Robot Operating System}
 }
 ```
